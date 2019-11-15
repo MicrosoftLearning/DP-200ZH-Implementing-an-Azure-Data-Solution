@@ -1,35 +1,41 @@
-# INF99X: Sample Course
+﻿# DP-200-实现 Azure 数据解决方案
 
-- **[Download Latest Student Handbook and AllFiles Content](../../releases/latest)**
-- **Are you a MCT?** - Have a look at our [GitHub User Guide for MCTs](https://microsoftlearning.github.io/MCT-User-Guide/)
-- **Need to manually build the lab instructions?** - Instructions are available in the [MicrosoftLearning/Docker-Build](https://github.com/MicrosoftLearning/Docker-Build) repository
+ 本课程的第一个和最后一个实验室用于小组练习，包括通过讨论帮助提供学生采用的实验室背景。通过最后一个实验室，学生可利用这个机会反思他们已经取得的结果、克服的困难，以符合实验室案例研究的交付要求。剩余实验室着手于实现 Azure 数据平台功能，以满足 AdventureWorks 业务需求。
 
-## What are we doing?
+以下为每个模块的实验室目标汇总：
 
-- To support this course, we will need to make frequent updates to the course content to keep it current with the Azure services used in the course.  We are publishing the lab instructions and lab files on GitHub to allow for open contributions between the course authors and MCTs to keep the content current with changes in the Azure platform.
+## 实验室 1 - 适用于数据工程师的 Azure
 
-- We hope that this brings a sense of collaboration to the labs like we've never had before - when Azure changes and you find it first during a live delivery, go ahead and make an enhancement right in the lab source.  Help your fellow MCTs.
+学生将获取从课程和案例研究中获得的信息，以确定 AdventureWorks 中数字转换项目的可交付成果。他们将首先确定不断发展的数据使用方法如何为组织带来新的机会。学生还将探索可以使用哪些 Azure 数据平台服务来满足业务需求，并定义将由数据工程师执行的任务。最后，学生将最终确定 AdventureWorks 的数据工程可交付成果。
 
-## How should I use these files relative to the released MOC files?
+## 实验室 2 - 使用数据存储
 
-- The instructor handbook and PowerPoints are still going to be your primary source for teaching the course content.
+在该实验室中，学生能够根据给定的业务组和技术要求确定适当的存储类型。他们能够创建Azure存储帐户和 Data Lake Storage 帐户，并解释 Data Lake Storage 版本 1 和版本 2 之间的区别。他们还将演示如何将数据加载置至选定的数据存储。
 
-- These files on GitHub are designed to be used in conjunction with the student handbook, but are in GitHub as a central repository so MCTs and course authors can have a shared source for the latest lab files.
+## 实验室 2 - 通过 Azure Databricks 启用基于团队的数据科学
 
-- It will be recommended that for every delivery, trainers check GitHub for any changes that may have been made to support the latest Azure services, and get the latest files for their delivery.
+结束给实验室的实验时，学生将能够解释 Azure Databricks 可用于辅助数据科学项目的原因。学生将准备 Azure Databricks 实例，然后创建工作区，用于执行 Data Lake Store Gen II 存储中的简单数据准备任务。最后，学生将使用 Azure Databricks 按步骤实行转换。
 
-## What about changes to the student handbook?
+## 实验室 4 - 使用 Cosmos DB 构建全局分布式数据库
 
-- We will review the student handbook on a quarterly basis and update through the normal MOC release channels as needed.
+学生能够描述和演示 Azure Cosmos DB 能为组织带来的性能。他们能够创建 Cosmos DB 实例，并展示通过门户和网络应用程序上传和查询数据的方式。然后，他们会演示 Cosmos DB 数据库的全球使用规模。
 
-## How do I contribute?
+## 实验室 5 - 使用云中的关系数据存储
 
-- Any MCT can submit a pull request to the code or content in the GitHub repro, Microsoft and the course author will triage and include content and lab code changes as needed.
+学生将准备 Azure SQL 数据库和 Azure SQL 数据仓库，同时能够对所创建实例中的一个示例发起查询。他们还能够集成 SQL 数据仓库以及其他数据平台技术，并使用 PolyBase 将数据从数据源加载至 Azure SQL 数据仓库中。
 
-- You can submit bugs, changes, improvement and ideas.  Find a new Azure feature before we have?  Submit a new demo!
+## 实验室 6 - 使用流分析执行实时分析
 
-## Notes
+学生能够说明数据流的定义和时间处理的工作途径，并给 AdventureWorks 案例研究选择适当的数据流提取技术。他们将准备所选的提取技术，并将其与流分析进行集成，以便于创建适用于流数据的解决方案。
 
-### Classroom Materials
+## 实验室 7  - 使用 Azure 数据工厂安排数据移动
 
-It is strongly recommended that MCTs and Partners access these materials and in turn, provide them separately to students.  Pointing students directly to GitHub to access Lab steps as part of an ongoing class will require them to access yet another UI as part of the course, contributing to a confusing experience for the student. An explanation to the student regarding why they are receiving separate Lab instructions can highlight the nature of an always-changing cloud-based interface and platform. Microsoft Learning support for accessing files on GitHub and support for navigation of the GitHub site is limited to MCTs teaching this course only.
+在本模块中，学生将学习如何使用 Azure 数据工厂来安排来自各种数据平台技术的数据移动。他们将能够解释此技术的功能，并能够设置端到端数据管道，从 SQL 数据库中引入数据并将数据加载到 SQL 数据仓库中。学生还将演示如何调用计算资源。
+
+## 实验室 8  - 保护 Azure 数据平台
+
+学生将能够描述和记录可用于提供深度防御的不同安全方法。这将涉及学生记录目前在课程中设置的安全性。它还能让学生识别 AdventureWorks 可能存在的任何安全漏洞。
+
+## 实验室 9  - 监控和解决数据存储和处理
+
+学生将能够定义广泛的监控解决方案，该解决方案可以帮助他们监控数据产生中可能出现的问题。然后，学生将遇到可能在云数据解决方案中出现的常见数据存储问题和数据处理问题。最后，他们将为数据平台技术实施灾难恢复方法。

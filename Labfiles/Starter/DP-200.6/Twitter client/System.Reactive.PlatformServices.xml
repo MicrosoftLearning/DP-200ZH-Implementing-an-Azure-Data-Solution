@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+    <assembly>
+        <name>System.Reactive.PlatformServices</name>
+    </assembly>
+    <members>
+        <member name="T:System.Reactive.Concurrency.EventLoopScheduler">
+            <summary>表示在指定会话上计划工作单元的对象。</summary>
+        </member>
+        <member name="F:System.Reactive.Concurrency.EventLoopScheduler.s_counter">
+            <summary>用于诊断目的的计数器，以命名会话。</summary>
+        </member>
+        <member name="F:System.Reactive.Concurrency.EventLoopScheduler._threadFactory">
+            <summary>会话工厂函数。</summary>
+        </member>
+        <member name="F:System.Reactive.Concurrency.EventLoopScheduler._stopwatch">
+            <summary>用于没有绝对时间依赖性计时的秒表。</summary>
+        </member>
+        <member name="F:System.Reactive.Concurrency.EventLoopScheduler._thread">
+            <summary>事件循环用于运行工作项的会话。不应该在任何其他会话上运行任何工作。如果设置了 ExitIfEmpty，则会话可以退出，并在计划新工作时创建新会话。</summary>
+        </member>
+        <member name="F:System.Reactive.Concurrency.EventLoopScheduler._gate">
+            <summary>用于保护数据结构的门，包括工作队列和就绪列表。</summary>
+        </member>
+        <member name="F:System.Reactive.Concurrency.EventLoopScheduler._evt">
+            <summary>信号灯，用于计数请求以重新计算队列，从计划请求开始计算，或者在计时器过期并移动到队列中的下一项时计算。</summary>
+        </member>
+        <member name="F:System.Reactive.Concurrency.EventLoopScheduler._queue">
+            <summary>队列持有工作项目。受到门的保护。</summary>
+        </member>
+        <member name="F:System.Reactive.Concurrency.EventLoopScheduler._readyList">
+            <summary>包含准备尽快运行的项目的队列。受到门的保护。</summary>
+        </member>
+        <member name="F:System.Reactive.Concurrency.EventLoopScheduler._nextItem">
+            <summary>下次计划的工作项目。在重新评估队列时使用，以检查下一个项目是否仍然相同。如果没有，则需要启动新计时器（见下文）。</summary>
+        </member>
+        <member name="F:System.Reactive.Concurrency.EventLoopScheduler._nextTimer">
+            <summary>一次性，总是保存计时器来分派队列中的第一个元素。</summary>
+        </member>
+        <member name="F:System.Reactive.Concurrency.EventLoopScheduler._disposed">
+            <summary>指示事件循环是否应退出的标志。设置时，也应该发出事件信号以唤醒事件循环会话，这随后将放弃所有工作。</summary>
+        </member>
+        <member name="M:System.Reactive.Concurrency.EventLoopScheduler.#ctor">
+            <summary>创建在指定会话上计划工作单元的对象。</summary>
+        </member>
+        <member name="M:System.Reactive.Concurrency.EventLoopScheduler.#ctor(System.Func{System.Threading.ThreadStart,System.Threading.Thread})">
+            <summary>创建一个对象，该对象使用指定的工厂来控制会话创建选项，从而在指定的会话上计划工作单元。</summary>
+            <param name="threadFactory">用于创建会话的工厂函数。</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="threadFactory"/> 为空。</exception>
+        </member>
+        <member name="M:System.Reactive.Concurrency.EventLoopScheduler.Schedule``1(``0,System.TimeSpan,System.Func{System.Reactive.Concurrency.IScheduler,``0,System.IDisposable})">
+            <summary>分配在 dueTime 后执行的操作。</summary>
+            <typeparam name="TState">传递至计划操作的状态类型。</typeparam>
+            <param name="state">传递给待执行操作的状态。</param>
+            <param name="action">要执行的操作。</param>
+            <param name="dueTime">执行操作之后的相对时间。</param>
+            <returns>用于取消计划操作的可释放对象（尽力服务）。</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> 为空。</exception>
+            <exception cref="T:System.ObjectDisposedException">计划程序已被处理，不接受新工作。</exception>
+        </member>
+        <member name="M:System.Reactive.Concurrency.EventLoopScheduler.SchedulePeriodic``1(``0,System.TimeSpan,System.Func{``0,``0})">
+            <summary>在指定的会话上计划定期工作。</summary>
+            <typeparam name="TState">传递至计划操作的状态类型。</typeparam>
+            <param name="state">在第一次迭代时将初始状态传递至操作。</param>
+            <param name="period">定期运行工作的时间段。</param>
+            <param name="action">可能更新状态的待执行的操作。</param>
+            <returns>用于取消计划的反复操作的一次性对象（尽力服务）。</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> 为空。</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="period"/> 小于 TimeSpan.Zero。</exception>
+            <exception cref="T:System.ObjectDisposedException">计划程序已被处理，不接受新工作。</exception>
+        </member>
+        <member name="M:System.Reactive.Concurrency.EventLoopScheduler.StartStopwatch">
+            <summary>启动新的秒表对象。</summary>
+            <returns>新的秒表对象；在请求时启动。</returns>
+        </member>
+        <member name="M:System.Reactive.Concurrency.EventLoopScheduler.Dispose">
+            <summary>结束与此计划程序关联的会话。计划程序队列中的所有剩余工作均将被放弃。</summary>
+        </member>
+        <member name="M:System.Reactive.Concurrency.EventLoopScheduler.EnsureThread">
+            <summary>确保有一个事件循环会话正在运行。应在门下调用。</summary>
+        </member>
+        <member name="M:System.Reactive.Concurrency.EventLoopScheduler.Run">
+            <summary>在指定事件循环会话上计划的事件循环。使用通过调用 Schedule、下一个项目计时器或调用 Dispose 来设置的事件暂停/恢复循环。</summary>
+        </member>
+        <member name="P:System.Reactive.Concurrency.EventLoopScheduler.ExitIfEmpty">
+            <summary>指示在没有剩余工作时是否允许事件循环会话退出。如果之后计划了新工作，则会创建新的事件循环会话。NewThreadScheduler 使用此属性，它使用事件循环进行递归调用。</summary>
+        </member>
+        <member name="T:System.Reactive.Concurrency.NewThreadScheduler">
+            <summary>表示在单独会话上计划每个工作单元的对象。</summary>
+        </member>
+        <member name="M:System.Reactive.Concurrency.NewThreadScheduler.#ctor">
+            <summary>创建在单独会话上计划每个工作单元的对象。</summary>
+        </member>
+        <member name="M:System.Reactive.Concurrency.NewThreadScheduler.#ctor(System.Func{System.Threading.ThreadStart,System.Threading.Thread})">
+            <summary>创建在单独会话上计划每个工作单元的对象。</summary>
+            <param name="threadFactory">用于创建会话的工厂函数。</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="threadFactory"/> 为空。</exception>
+        </member>
+        <member name="M:System.Reactive.Concurrency.NewThreadScheduler.Schedule``1(``0,System.TimeSpan,System.Func{System.Reactive.Concurrency.IScheduler,``0,System.IDisposable})">
+            <summary>分配在 dueTime 后执行的操作。</summary>
+            <typeparam name="TState">传递至计划操作的状态类型。</typeparam>
+            <param name="state">传递给待执行操作的状态。</param>
+            <param name="action">要执行的操作。</param>
+            <param name="dueTime">执行操作之后的相对时间。</param>
+            <returns>用于取消计划操作的可释放对象（尽力服务）。</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> 为空。</exception>
+        </member>
+        <member name="M:System.Reactive.Concurrency.NewThreadScheduler.ScheduleLongRunning``1(``0,System.Action{``0,System.Reactive.Disposables.ICancelable})">
+            <summary>通过创建新会话来计划长时间运行的任务。取消通过轮询进行。</summary>
+            <typeparam name="TState">传递至计划操作的状态类型。</typeparam>
+            <param name="state">传递给待执行操作的状态。</param>
+            <param name="action">要执行的操作。</param>
+            <returns>用于取消计划操作的可释放对象（尽力服务）。</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> 为空。</exception>
+        </member>
+        <member name="M:System.Reactive.Concurrency.NewThreadScheduler.SchedulePeriodic``1(``0,System.TimeSpan,System.Func{``0,``0})">
+            <summary>通过创建新会话来计划定期工作，该会话在分派工作时进入休眠状态，并在下一个定期到期时再次唤醒。</summary>
+            <typeparam name="TState">传递至计划操作的状态类型。</typeparam>
+            <param name="state">在第一次迭代时将初始状态传递至操作。</param>
+            <param name="period">定期运行工作的时间段。</param>
+            <param name="action">可能更新状态的待执行的操作。</param>
+            <returns>用于取消计划的反复操作的一次性对象（尽力服务）。</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> 为空。</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="period"/> 小于 TimeSpan.Zero。</exception>
+        </member>
+        <member name="M:System.Reactive.Concurrency.NewThreadScheduler.StartStopwatch">
+            <summary>启动新的秒表对象。</summary>
+            <returns>新的秒表对象;在请求时启动。</returns>
+        </member>
+        <member name="P:System.Reactive.Concurrency.NewThreadScheduler.Default">
+            <summary>获取此计划程序的实例，该计划程序使用默认的 Thread 构造函数。</summary>
+        </member>
+        <member name="T:System.Reactive.PlatformServices.EnlightenmentProvider">
+            <summary>提供对其他 Rx 库用于改进系统性能和运行时效率的平台启示的访问。虽然 Rx 可以在没有加载平台启示的情况下运行，但建议通过应用程序部署 System.Reactive.PlatformServices 程序集，并在应用程序启动期间调用 <see cref="M:System.Reactive.PlatformServices.EnlightenmentProvider.EnsureLoaded"/> 来确保正确加载启示。</summary>
+        </member>
+        <member name="M:System.Reactive.PlatformServices.EnlightenmentProvider.EnsureLoaded">
+            <summary>确保调用的程序集引用了具有平台启示的 System.Reactive.PlatformServices 程序集。如果没有从用户代码中引用，则构建过程可能会丢弃 System.Reactive.PlatformServices 的部署，从而阻止其运行时发现。</summary>
+            <returns>如果加载的启示提供程序与当前程序集中定义的提供程序匹配，则为 true；否则，为 false。当主机安装了自定义启示提供程序时，将返回 false。</returns>
+        </member>
+        <member name="T:System.Reactive.Concurrency.TaskPoolScheduler">
+            <summary>表示在任务并行库 (TPL) 任务池上计划工作单元的对象。</summary>
+            <seealso cref="P:System.Reactive.Concurrency.TaskPoolScheduler.Default">使用默认 TaskScheduler 来计划 TPL 任务池上的工作的此类实例。</seealso>
+        </member>
+        <member name="M:System.Reactive.Concurrency.TaskPoolScheduler.#ctor(System.Threading.Tasks.TaskFactory)">
+            <summary>创建使用提供的 TaskFactory 计划工作单元的对象。</summary>
+            <param name="taskFactory">用于创建任务以运行工作单元的任务工厂。</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="taskFactory"/> 为空。</exception>
+        </member>
+        <member name="M:System.Reactive.Concurrency.TaskPoolScheduler.Schedule``1(``0,System.Func{System.Reactive.Concurrency.IScheduler,``0,System.IDisposable})">
+            <summary>安排要执行的操作。</summary>
+            <typeparam name="TState">传递至计划操作的状态类型。</typeparam>
+            <param name="state">传递给待执行操作的状态。</param>
+            <param name="action">要执行的操作。</param>
+            <returns>用于取消计划操作的可释放对象（尽力服务）。</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> 为空。</exception>
+        </member>
+        <member name="M:System.Reactive.Concurrency.TaskPoolScheduler.Schedule``1(``0,System.TimeSpan,System.Func{System.Reactive.Concurrency.IScheduler,``0,System.IDisposable})">
+            <summary>分配在 dueTime 后执行的操作。</summary>
+            <typeparam name="TState">传递至计划操作的状态类型。</typeparam>
+            <param name="state">传递给待执行操作的状态。</param>
+            <param name="action">要执行的操作。</param>
+            <param name="dueTime">执行操作之后的相对时间。</param>
+            <returns>用于取消计划操作的可释放对象（尽力服务）。</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> 为空。</exception>
+        </member>
+        <member name="M:System.Reactive.Concurrency.TaskPoolScheduler.ScheduleLongRunning``1(``0,System.Action{``0,System.Reactive.Disposables.ICancelable})">
+            <summary>通过使用 TaskCreationOptions.LongRunning 创建新任务，计划长时间运行的任务。取消通过轮询进行。</summary>
+            <typeparam name="TState">传递至计划操作的状态类型。</typeparam>
+            <param name="state">传递给待执行操作的状态。</param>
+            <param name="action">要执行的操作。</param>
+            <returns>用于取消计划操作的可释放对象（尽力服务）。</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> 为空。</exception>
+        </member>
+        <member name="M:System.Reactive.Concurrency.TaskPoolScheduler.StartStopwatch">
+            <summary>获取新的秒表对象。</summary>
+            <returns>新的秒表对象;在请求时启动。</returns>
+        </member>
+        <member name="M:System.Reactive.Concurrency.TaskPoolScheduler.SchedulePeriodic``1(``0,System.TimeSpan,System.Func{``0,``0})">
+            <summary>通过运行特定于平台的计时器来定期创建任务，从而计划定期工作。</summary>
+            <typeparam name="TState">传递至计划操作的状态类型。</typeparam>
+            <param name="state">在第一次迭代时将初始状态传递至操作。</param>
+            <param name="period">定期运行工作的时间段。</param>
+            <param name="action">可能更新状态的待执行的操作。</param>
+            <returns>用于取消计划的反复操作的一次性对象（尽力服务）。</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> 为空。</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="period"/> 小于 TimeSpan.Zero。</exception>
+        </member>
+        <member name="P:System.Reactive.Concurrency.TaskPoolScheduler.Default">
+            <summary>获取此计划程序的实例，该计划程序使用默认的 TaskScheduler。</summary>
+        </member>
+        <member name="T:System.Reactive.Concurrency.ThreadPoolScheduler">
+            <summary>表示在 CLR 会话池上计划工作单元的对象。</summary>
+            <seealso cref="P:System.Reactive.Concurrency.ThreadPoolScheduler.Instance">通过此静态属性公开的此类型单个实例。</seealso>
+        </member>
+        <member name="M:System.Reactive.Concurrency.ThreadPoolScheduler.Schedule``1(``0,System.Func{System.Reactive.Concurrency.IScheduler,``0,System.IDisposable})">
+            <summary>安排要执行的操作。</summary>
+            <typeparam name="TState">传递至计划操作的状态类型。</typeparam>
+            <param name="state">传递给待执行操作的状态。</param>
+            <param name="action">要执行的操作。</param>
+            <returns>用于取消计划操作的可释放对象（尽力服务）。</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> 为空。</exception>
+        </member>
+        <member name="M:System.Reactive.Concurrency.ThreadPoolScheduler.Schedule``1(``0,System.TimeSpan,System.Func{System.Reactive.Concurrency.IScheduler,``0,System.IDisposable})">
+            <summary>使用 System.Threading.Timer 对象计划在 dueTime 后执行的操作。</summary>
+            <typeparam name="TState">传递至计划操作的状态类型。</typeparam>
+            <param name="state">传递给待执行操作的状态。</param>
+            <param name="action">要执行的操作。</param>
+            <param name="dueTime">执行操作之后的相对时间。</param>
+            <returns>用于取消计划操作的可释放对象（尽力服务）。</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> 为空。</exception>
+        </member>
+        <member name="M:System.Reactive.Concurrency.ThreadPoolScheduler.ScheduleLongRunning``1(``0,System.Action{``0,System.Reactive.Disposables.ICancelable})">
+            <summary>通过创建新会话来计划长时间运行的任务。取消通过轮询进行。</summary>
+            <typeparam name="TState">传递至计划操作的状态类型。</typeparam>
+            <param name="state">传递给待执行操作的状态。</param>
+            <param name="action">要执行的操作。</param>
+            <returns>用于取消计划操作的可释放对象（尽力服务）。</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> 为空。</exception>
+        </member>
+        <member name="M:System.Reactive.Concurrency.ThreadPoolScheduler.StartStopwatch">
+            <summary>启动新的秒表对象。</summary>
+            <returns>新的秒表对象;在请求时启动。</returns>
+        </member>
+        <member name="M:System.Reactive.Concurrency.ThreadPoolScheduler.SchedulePeriodic``1(``0,System.TimeSpan,System.Func{``0,``0})">
+            <summary>使用 System.Threading.Timer 对象计划定期工作。</summary>
+            <typeparam name="TState">传递至计划操作的状态类型。</typeparam>
+            <param name="state">在第一次迭代时将初始状态传递至操作。</param>
+            <param name="period">定期运行工作的时间段。</param>
+            <param name="action">可能更新状态的待执行的操作。</param>
+            <returns>用于取消计划的反复操作的一次性对象（尽力服务）。</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> 为空。</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="period"/> 小于或等于零。</exception>
+        </member>
+        <member name="P:System.Reactive.Concurrency.ThreadPoolScheduler.Instance">
+            <summary>获取 CLR 会话池计划程序的单一实例。</summary>
+        </member>
+        <member name="T:System.Reactive.PlatformServices.CurrentPlatformEnlightenmentProvider">
+            <summary>（基础结构）提供程序，用于平台特定的框架启示。</summary>
+        </member>
+        <member name="M:System.Reactive.PlatformServices.CurrentPlatformEnlightenmentProvider.GetService``1(System.Object[])">
+            <summary>（基础结构）尝试获取指定的服务。</summary>
+            <typeparam name="T">服务类型</typeparam>
+            <param name="args">可选的参数集。</param>
+            <returns>服务实例，如果未找到则为 null。</returns>
+        </member>
+        <member name="T:System.Reactive.Strings_PlatformServices">
+            <summary>强类型资源类，用于查找本地化字符串等。</summary>
+        </member>
+        <member name="P:System.Reactive.Strings_PlatformServices.ResourceManager">
+            <summary>返回此类使用的缓存 ResourceManager 实例。</summary>
+        </member>
+        <member name="P:System.Reactive.Strings_PlatformServices.Culture">
+            <summary>使用此强类型资源类覆盖当前线程的 CurrentUICulture 属性以进行所有资源查找。</summary>
+        </member>
+        <member name="P:System.Reactive.Strings_PlatformServices.WINRT_NO_SUB1MS_TIMERS">
+            <summary>查找类似于 WinRT 会话池的本地化字符串不支持创建周期低于 1 毫秒的定期计时器。</summary>
+        </member>
+    </members>
+</doc>
