@@ -5,41 +5,41 @@ lab:
 ---
 
 # DP 200 - 实施数据平台解决方案
-# 实验室 4 - 使用 Cosmos DB 构建全局分布式数据库
+# 实验4 - 使用 Cosmos DB 构建全球分布式数据库
 
 **预计用时**：90 分钟
 
-**先决条件**：假设已阅读了本实验室的案例研究。假设模块 1：数据工程师 Azure 的内容和实验室适用于数据工程师的 Azure 也已完成
+**先决条件**：假设已阅读了本实验室的案例研究。假设模块 1：数据工程师的 Azure 也已完成
 
 **实验室文件**：本实验的文件位于 _Allfiles\Labfiles\Starter\DP-200.4_ 文件夹中。
 
 ## 实验室概述
 
-学生将能够说明和演示 Azure Cosmos DB 可为组织带来的功能。他们将能够创建 Cosmos 数据库实例，并展示如何通过门户网站和 .Net 应用程序上传和查询数据。然后，他们将能够演示如何启用 Cosmos DB 数据库的全球扩展。
+学生将能够描述和演示 Azure Cosmos DB 可为组织带来的功能。他们将能够创建 Cosmos DB 实例，并展示如何通过门户网站和 .Net 应用程序上传和查询数据。然后，他们将能够演示如何启用 Cosmos DB 数据库的全局扩展。
 
 ## 实验室目标
   
-完成本实验后，你将能够：
+完成本实验室课程后，你将能够：
 
 1. 创建按比例构建的 Azure Cosmos DB 数据库
 1. 在 Azure Cosmos DB 数据库中插入和查询数据
-1. 在 Visual Studio Code 中为 Azure Cosmos DB 构建 .NET Core 应用
 1. 使用 Azure Cosmos DB 全局分布数据
+1. （可选）在 Visual Studio Code 中为 Azure Cosmos DB 构建 .NET Core 应用
 
-## 方案
+## 场景
   
-AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上发布的一项名为 Cosmos DB 的新服务可以近乎实时地提供对数据的全球规模访问。他们希望了解此服务可以提供的功能以及它如何为 AdventureWorks 带来价值，以及在什么情况下使用。
+AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上发布的一项名为 Cosmos DB 的新服务可以近乎实时地提供对数据的全球规模访问。他们希望了解服务可以提供的功能以及它如何为 AdventureWorks 带来价值，以及在什么情况下。
 
-信息服务部门希望了解如何设置服务以及如何上传数据。开发人员希望看到可用于将数据上传到 Cosmos 的应用程序的示例。两者都想了解如何满足全球规模的要求。
+信息服务部门希望了解如何设置服务以及如何上传数据。开发人员希望看到可用于将数据上传到 Cosmos 的应用程序示例。两者都想了解如何满足全球规模的要求。
 
-在本实验结束时，你将能够：
+在本实验室课程结束时，你将能够：
 
 1. 创建按比例构建的 Azure Cosmos DB 数据库
 1. 在 Azure Cosmos DB 数据库中插入和查询数据
-1. 在 Visual Studio Code 中为 Azure Cosmos DB 构建 .NET Core 应用
 1. 使用 Azure Cosmos DB 全局分布数据
+1. （可选）在 Visual Studio Code 中为 Azure Cosmos DB 构建 .NET Core 应用
 
-> **重要事项**：在完成本实验时，请记下你在任何设置或配置任务中遇到的任何问题，并将其记录在位于_\Labfiles\DP-200-Issues-Doc.docx_的文档的表格中。记录实验室编号，记录技术，说明问题以及解决方案的内容。保存该文档，以便在稍后的模块中参考它。
+> **重要事项**: 在完成本实验室课程时，请记下你在任何设置或配置任务中遇到的任何问题，并将其记录在位于 _\Labfiles\DP-200-Issues-Doc.docx_ 的文档的表格中。记录实验室编号，记录技术，说明问题以及解决方案的内容。保存该文档，以便在稍后的模块中参考它。
 
 ## 练习 1：创建按比例构建的 Azure Cosmos DB 数据库
 
@@ -67,7 +67,7 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
 
     - 用户名：**awcdbstudxx**，其中 **XX** 是你的姓名缩写。
 
-    - API：**核心（SQL）**
+    - API：**核心 (SQL)**
 
     - 位置：最靠近实验室位置的Azure区域的名称，在其中你能设置Azure VM的位置。
 
@@ -101,27 +101,29 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
 
 1. 在 Azure门户 中，在 **awcdbstudxx - 快速启动** 屏幕中，单击边栏选项卡中的 **概览** 选项
 
-1. 在 **awcdbstudxx** 屏幕中，单击 **+添加集合**。这样使用 **添加集合** 打开了 **数据资源管理器**。
+1. 在 **awcdbstudxx** 屏幕中，单击 **+添加容器**。这将通过 **SQL API** 边栏选项卡，打开 **awcdbstudxx 数据资源管理器**。
 
-1. 在 **添加集合** 屏幕中，使用名为 Clothing（服装）的集合创建 Products（产品）数据库，其中包含以下设置：
+1. 在 **SQL API** 上方，单击**新容器** 屏幕，使用包含以下设置的名为 Clothing 的容器创建一个 Products 数据库：
 
     - 数据库 id：**产品**
+    
+    - 通量：  **400**
 
-    - 订阅：  **服装**
+    - 容器 id：  **Clothing**
 
     - 分区键：**/产品Id**
 
     - 将其余选项保留为默认值
 
-1.在 **添加集合** 屏幕中，单击 **OK**
+1. 在 **添加容器** 屏幕中，单击 **确定**
 
 ### 任务 2：使用门户添加数据
 
 1. 在 **awcdbstudcto - 数据资源管理器** 屏幕中，在数据资源管理器工具栏上“新集合”按钮对面，单击 **打开全屏** 按钮。在“打开全屏”对话框中，单击 **打开**。Microsoft Edge 中将打开一个新选项卡。
 
-1. 在 **SQL API** 窗格中，扩展 **服装** 并点击 **文档**。将出现包含你现在将替换的示例 JSON 的新文档。
+1. 在 **SQL API** 窗格中，扩展 **服装** 并点击 **项目**。将出现包含你现在将替换的示例 JSON 的新文档。
 
-1. 在“文档”窗格中，单击 **新文档** 图标。
+1. 在“文档”窗格中，单击 **新项目** 图标。
 
 1. 复制以下代码并将其粘贴到 **文档** 标签：
 
@@ -146,9 +148,9 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
 
 1. 将 JSON 添加到“文档”选项卡后，单击 **保存**。
 
-1. 在“文档”窗格中，单击 **新文档** 图标。
+1. 在“文档”窗格中，单击 **新项目** 图标。
 
-1. 复制以下代码并将其粘贴到 **文档** 标签：
+1. 复制以下代码并将其粘贴到 **项目** 选项卡：
 
     ```JSON
     {
@@ -171,13 +173,13 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
 
 1. 将 JSON 添加到“文档”选项卡后，单击 **保存**。
 
-1. 你可以通过单击左侧菜单上的每个文档来查看已保存的每个文档。
+1. 你可以通过单击左侧菜单上的每个文档来查看已保存的每个文档。ID 为 1 的第一项的值为 **33218896**，第二项的值将是 **33218897**
 
 ### 任务 3：在 Azure 门户中运行查询。
 
-1. 在 Azure 门户中，在 **文件** 屏幕中，单击 **新的 SQL 查询** 按钮。
+1. 在 Azure 门户中，在**项目**屏幕中，单击**新的 SQL 查询**按钮，其位于 **SQL API** 边栏选项卡上方。
 
-    > **注**：出现查询 1 屏幕，显示查询 **SELECT * FROM c** 进行选择。
+    > **注**：出现查询 1 屏幕选项卡，显示查询** 从 **c** 进行选择。
 
 1. 编写返回 JSON 文件的查询，该文件显示 productId 1 的详细信息。
 
@@ -265,7 +267,7 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
 
 ### 任务 4：对数据运行复杂的操作
 
-1. 在 Azure 门户中，在 **文件** 屏幕中，单击 **新的存储流程** 按钮。
+1. 在 Azure 门户中，在 **项目** 屏幕中，单击 **新的存储流程** 按钮。
 
     > **注**：将出现显示示例存储过程的新存储流程屏幕。
 
@@ -299,7 +301,7 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
 
 1. 在“新存储流程”屏幕中，单击 **执行**。
 
-1. 在“输入参数”屏幕中，在 **分区键值** 文本框中输入 **33218898**，然后单击 **执行**。
+1. 在输入参数屏幕中，**类型** 应该设置为 **字符串** 和 **数值**，其中数值在 **分区键值数值** 文本框中设为 **33218898**，然后单击 **执行**。
 
 返回以下结果
 
@@ -316,7 +318,7 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
     }
     ```
 
-1. 在 Azure 门户中，在 **文档** 屏幕中，单击下拉按钮 **新存储流程** 并单击 **新 UDF**。
+1. 在 Azure 门户中，在 **项目** 屏幕中，单击下拉按钮 **新存储流程** 并单击 **新 UDF**。
 
     > **注**：将出现显示 **function userDefinedFunction(){}** 的新 UDF 1 屏幕
 
@@ -375,7 +377,49 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
     ]
     ```
 
-## 练习 3：在 Visual Studio Code 中为 Azure Cosmos DB 构建 .NET Core 应用
+## 练习 3： 使用 Azure Cosmos DB 全局分布数据
+
+预计用时：15 分钟
+
+个人练习
+
+本练习的主要任务如下：
+
+1. 将数据复制到多个区域
+
+1. 管理故障转移
+
+### 任务 1：将数据复制到多个区域
+
+1. 在 Microsoft Edge 中，单击说明 **数据资源管理器 - Microsoft** 的选项卡。
+
+1. 如果出现指示“连接错误”的消息，请单击 **刷新** 按钮。
+
+1. 在 **awcdbstudxx - 数据资源管理器** 窗口中，单击 **全球复制数据**
+
+1. 在世界地图上，单击你所在大陆内的数据中心位置，然后单击 **保存**。
+
+> **注** 配置额外的数据中心大约需要 7 分钟
+
+### 任务2： 管理故障转移。
+
+1. 在 **awcdbstudxx - 全球复制数据** 窗口中，单击 **手动故障转移**。
+
+1. 单击 **读取区域** 数据中心位置并单击 **OK**。
+
+> **注**  手动故障转移大约需要 3 分钟。
+
+1. 在 **awcdbstudxx - 全球复制数据** 窗口中，单击 **自动故障转移**
+
+1. 在“自动故障转移”屏幕中，单击 **打开** 按钮，然后单击 **OK**。
+
+> **注**: 自动故障转移的设置大约需要 3 分钟。
+
+## 如果时间允许
+
+> **注**： 如果你到目前为止已经完成了实验并且有时间，请询问讲师是否可以进行练习 4。这是针对 Cosmos DB 构建应用程序的示例。这不是 DP200 的考试要求，并且此实验室说明了可能的操作
+
+## 练习 4： 在 Visual Studio Code 中为 Azure Cosmos DB 构建 .NET Core 应用
 
 预计用时：45 分钟
 
@@ -397,7 +441,7 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
 
 1. 打开 Visual Studio 代码。
 
-1. 在左侧菜单中，单击扩展按钮。
+1. 在左侧菜单中，单击“扩展”按钮。
 
 1. 在“市场中的搜索扩展”文本框中，输入 **Cosmos DB** 并点击 **Azure Cosmos DB**。Visual Studio 代码中出现一个文档，然后单击 **安装**
 
@@ -541,7 +585,7 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
 1. 添加新的异步任务以创建新客户端，并通过在主要方法后添加以下方法来检查用户数据库是否存在。
 
     ```C#
-    private async Task BasicOperations（）
+    private async Task BasicOperations()
     {
         this.client = new DocumentClient(new Uri(ConfigurationManager.AppSettings["accountEndpoint"]), ConfigurationManager.AppSettings["accountKey"]);
 
@@ -584,7 +628,7 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
     }
     ```
 
-1. 在集成终端中，再次复制并粘贴以下命令以运行程序，从而确保代码运行。
+1. 在集成终端中，再次复制并粘贴以下命令以运行程序以确保其运行。
 
     ```bash
     dotnet run
@@ -608,7 +652,7 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
 1. 为了创建这些类，请将以下 **用户**、**OrderHistory**、**ShippingPreference** 和 **CouponsUsed** 类复制并粘贴到 **BasicOperations** 方法下。
 
     ```C#
-    公共类用户
+    public class User
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -666,7 +710,7 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
     }
     ```
 
-1. 在集成终端中，再次复制并粘贴以下命令以运行程序，从而确保代码运行。
+1. 在集成终端中，再次复制并粘贴以下命令以运行程序以确保其运行。
 
     ```bash
     dotnet run
@@ -679,7 +723,7 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
     End of demo, press any key to exit.
     ```
 
-1. 现在将 **CreateUserDocumentIfNotExists** 任务复制并粘贴到 Program.cs 文件末尾的 **WriteToConsoleAndPromptToContinue** 下。
+1. 现在复制并粘贴 **CreateUserDocumentIfNotExists** 任务到 Program.cs 文件末尾的 **WriteToConsoleAndPromptToContinue** 方法下。
 
     ```C#
     private async Task CreateUserDocumentIfNotExists(string databaseName, string collectionName, User user)
@@ -783,7 +827,7 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
     await this.CreateUserDocumentIfNotExists("Users", "WebCustomers", nelapin);
     ```
 
-1. 在集成终端中，再次复制并粘贴以下命令以运行程序，从而确保代码运行。
+1. 在集成终端中，再次复制并粘贴以下命令以运行程序以确保其运行。
 
     ```bash
     dotnet run
@@ -832,7 +876,7 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
     await this.ReadUserDocument("Users", "WebCustomers", yanhe);
     ```
 
-1. 在集成终端中，再次复制并粘贴以下命令以运行程序，从而确保代码运行。
+1. 在集成终端中，再次复制并粘贴以下命令以运行程序以确保其运行。
 
     ```bash
     dotnet run
@@ -884,7 +928,7 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
     await this.ReplaceUserDocument("Users", "WebCustomers", yanhe);
     ```
 
-1. 在集成终端中，再次复制并粘贴以下命令以运行程序，从而确保代码运行。
+1. 在集成终端中，再次复制并粘贴以下命令以运行程序以确保其运行。
 
     ```bash
     dotnet run
@@ -937,7 +981,7 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
     await this.DeleteUserDocument("Users", "WebCustomers", yanhe);
     ```
 
-1. 在集成终端中，再次复制并粘贴以下命令以运行程序，从而确保代码运行。
+1. 在集成终端中，再次复制并粘贴以下命令以运行程序以确保其运行。
 
     ```bash
     dotnet run
@@ -1003,7 +1047,7 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
     this.ExecuteSimpleQuery("Users", "WebCustomers");
     ```
 
-1. 在集成终端中，再次复制并粘贴以下命令以运行程序，从而确保代码运行。
+1. 在集成终端中，再次复制并粘贴以下命令以运行程序以确保其运行。
 
     ```bash
     dotnet run
@@ -1056,7 +1100,7 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
     await this.RunStoredProcedure("Users", "WebCustomers", yanhe);
     ```
 
-1. 在集成终端中，再次复制并粘贴以下命令以运行程序，从而确保代码运行。
+1. 在集成终端中，再次复制并粘贴以下命令以运行程序以确保其运行。
 
     ```bash
     dotnet run
@@ -1086,40 +1130,3 @@ AdventureWorks 的开发人员和信息服务部门意识到最近在 Azure 上�
 
 > **结果** 在本练习中，你通过设置 Visual Studio code 从头开始构建控制台应用程序，以连接 Azure Cosmos DB。然后，你创建了 .Net 代码，以编程方式创建、读取、更新和删除 NoSQL 数据。然后，你添加了用于查询 Cosmos DB 的代码，并学习了如何创建编程对象（如存储流程）以运行 Cosmos DB
 
-## 练习 4：使用 Azure Cosmos DB 全局分布数据
-
-预计用时：15 分钟
-
-个人练习
-
-本练习的主要任务如下：
-
-1. 将数据复制到多个区域
-
-1. 管理故障转移
-
-### 任务 1：将数据复制到多个区域
-
-1. 在 Microsoft Edge 中，单击说明 **数据资源管理器 - Microsoft** 的选项卡。
-
-1. 如果出现指示“连接错误”的消息，请单击 **刷新** 按钮。
-
-1. 在 **awcdbstudxx - 数据资源管理器** 窗口中，单击 **全球复制数据**
-
-1. 在世界地图上，单击你所在大陆内的数据中心位置，然后单击 **保存**。
-
-> **注**  配置额外的数据中心大约需要 7 分钟
-
-### 任务 2：管理故障转移。
-
-1. 在 **awcdbstudxx - 全球复制数据** 窗口中，单击 **手动故障转移**。
-
-1. 单击 **读取区域** 数据中心位置并单击 **OK**。
-
-> **注**  手动故障转移大约需要 3 分钟。
-
-1. 在 **awcdbstudxx - 全球复制数据** 窗口中，单击 **自动故障转移**
-
-1. 在“自动故障转移”屏幕中，单击 **打开** 按钮，然后单击 **OK**。
-
-> **注**  自动故障转移的设置大约需要 3 分钟。

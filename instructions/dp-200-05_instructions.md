@@ -5,26 +5,26 @@ lab:
 ---
 
 # DP 200 - 实施数据平台解决方案
-# 实验室 5 - 在云中使用关系数据存储
+# 实验 5 - 在云中使用关系数据存储
 
 **预计用时**：75 分钟
 
-**先决条件**：假设已阅读了本实验室的案例研究。假设模块 1：数据工程师 Azure 的内容和实验室适用于数据工程师的 Azure 也已完成
+**先决条件**：假设已阅读了本实验室的案例研究。假设模块 1 的内容和实验：数据工程师的 Azure 也已完成
 
-**实验室文件**：本实验室的文件位于_Allfiles\Labfiles\Starter\DP-200.5_文件夹。
+**实验室文件**：本实验室文件位于 _Allfiles\Labfiles\Starter\DP-200.5_ 文件夹中。
 
-## 实验概述
+## 实验室概述
 
-学生将能够配置Azure SQL数据库和Azure SQL数据仓库，并能够针对创建的其中一个实例进行查询。他们还将能够将SQL数据仓库与许多其他数据平台技术集成，并使用PolyBase将数据从一个数据源加载到Azure SQL数据仓库中。
+学生将能够配置 Azure SQL 数据库和 Azure SQL 数据仓库，并能够针对其中一个创建的实例发起查询。还能够将SQL数据仓库与许多其他数据平台技术集成，并使用PolyBase将数据从一个数据源加载到Azure SQL数据仓库中。
 
 ## 实验室目标
   
-在完成本实验后，你将能够：
+完成本实验室课程后，你将能够：
 
 1. 使用 Azure SQL 数据库
 1. 描述 Azure 数据仓库
 1. 创建并查询 Azure SQL 数据仓库
-1. 使用 PolyBase 将数据加载到 Azure SQL 数据仓库中
+1. 使用 PolyBase 将数据加载到 Azure SQL 数据仓库
 
 ## 方案
   
@@ -37,7 +37,7 @@ lab:
 1. 使用 Azure SQL 数据库
 1. 描述 Azure 数据仓库
 1. 创建并查询 Azure SQL 数据仓库
-1. 使用 PolyBase 将数据加载到 Azure SQL 数据仓库中
+1. 使用 PolyBase 将数据加载到 Azure SQL 数据仓库
 
 > **重要事项**：在完成本实验室时，请记下你在任何设置或配置任务中遇到的任何问题，并将其记录在位于_\Labfiles\DP-200-Issues-Doc.docx_的文档的表格中。记录实验室编号，记录技术，说明问题以及解决方案的内容。保存该文档，以便在稍后的模块中参考它。
 
@@ -65,13 +65,13 @@ lab:
 
     - 资源组名称：**awrgstudxx**，其中 **XX** 是你的姓名缩写。
 
-    - 数据库名称：**DeptDatabasesxx**，其中 **XX** 是你的姓名缩写。
+    - 数据库名称：在数据源下的 **“附加设置”** 选项卡，单击 **“示例”**。自动选择 AdventureworksLT 示例数据库。
 
-    - 服务器：使用以下设置创建新服务器，然后单击 **选择**：
+    - 服务器：通过单击 **“新建”**，以及进行以下设置，来创建新的服务器，然后单击 **“确定”**：
         - 服务器名称：**SQLServicexx**，其中 **XX** 是你的姓名缩写
         - 服务器管理员登录 **xxsqladmin**，其中 **XX** 是你的姓名缩写
-        - 密码：**P@ssw0rd**
-        - 确认密码：**P@ssw0rd**
+        - 密码：**Pa55w.rd**
+        - 确认密码：**Pa55w.rd**
         - 位置：选择一个离你很近的 **位置**。
         - 允许Azure服务访问服务器：**已检查**
 
@@ -107,7 +107,7 @@ lab:
 
 1. 在 **SQL数据仓库** 边栏选项卡中，单击 **创建**。
 
-1. 从 **SQL数据仓库** 边栏选项卡使用以下设置创建Azure SQL数据库：
+1. 从 **“SQL 数据仓库”** 边栏选项卡中，通过以下设置，创建 Azure SQL 数据仓库：
 
     - 数据库名称：**Warehousexx**，其中 **XX** 是你的姓名缩写。
 
@@ -115,15 +115,14 @@ lab:
 
     - 资源组名称：**awrgstudxx**，其中 **XX** 是你的姓名缩写。
 
-    - 选择源：**示例**
-
-    - 选择示例：**AdventureWorksDW**
-
     - 服务器：**SQLServicexx**
 
-    - 性能水平：**Gen1 DW200：**
+    - 性能水平：**Gen2 DW100C：**
 
-1. 在 **SQL数据仓** 库边栏选项卡中，单击 **创建**。
+    - 选择源：在数据源下的 **“附加设置”** 选项卡，单击 **“示例”**
+
+
+1. 在**SQL数据仓库边栏选项卡中，单击**创建**。
 
    > **注**：这大约需要7分钟。
 
@@ -183,9 +182,9 @@ lab:
 
     ```SQL
     CREATE DATABASE DWDB COLLATE SQL_Latin1_General_CP1_CI_AS
-    （
+    (
         EDITION 			= 'DataWarehouse'
-    ,	SERVICE_OBJECTIVE 	= 'DW100'
+    ,	SERVICE_OBJECTIVE 	= 'DW100C'
     ,	MAXSIZE 			= 1024 GB
     );
     ```
@@ -197,6 +196,8 @@ lab:
 ### 任务 3：创建SQL数据仓库表。
 
 1. 在 **SQL Server Management Studio** 中，在对象资源管理器中，右键单击 **sqlservicexx.database.windows.net** 并单击 **新查询**。
+
+    >**注**： 如果你不熟悉 Transact-SQL，则在 Allfiles\Solution\DP-200.5\folder 下有一个脚本名为 **Exercise3 Task3Step2 script.sql** 的脚本。它包含创建表所需的大部分代码，但是你必须通过选择要用于每个表的分配类型来完成代码 
 
 1. 创建一个名为 **dbo.Users** 的表，其具有 **聚集列存储** 索引，此索引为 **复制** 分布，具有以下列：
 
@@ -219,7 +220,7 @@ lab:
     | 英文产品名称 | nvarchar(100) | 空|
     | 颜色 | nvarchar(100) | 空|
     | 标准费用 | int | 空|
-    | 价格表 | int | 空|
+    | ListPrice | int | 空|
     | 大小 | nvarchar(100) | 空|
     | 重量 | int | 空|
     | 制造日 | int | 空|
@@ -230,7 +231,7 @@ lab:
 
 1. 在 **SQL Server Management Studio** 中，在对象资源管理器中，右键单击 **sqlservicexx.database.windows.net** 并单击 **新查询**。
 
-1. 创建一个名为 **dbo.FactSales** 的表，其具有 **聚集列存储索引**，此索引在 **销量单位** 上为 **哈希** 分布，具有以下列：
+1. 创建一个名为 **dbo.FactSales** 的表，其具有 **聚集列存储** 索引，此索引在 **销量单位** 上为 **哈希** 分布，具有以下列：
 
     | 列名 | 数据类型 | 可为空性|
     |-------------|-----------|------------|
@@ -256,11 +257,10 @@ lab:
 
 1. 使用Azure Blob中的PolyBase创建dbo.Dates表
 
-1. 使用Azure Databricks中的PolyBase创建dbo.Preferences表
 
 ### 任务 1：收集Azure Blob帐户名称和密钥详情
 
-1. 在Azure门户的边栏选项卡中，单击 **资源组**，然后单击 **awrgstudxx**，再单击 **awsastudxx**，其中xx是你的姓名缩写
+1. 在Azure门户，单击 **资源组**，然后单击 **awrgstudxx**，再单击 **awsastudxx**，其中xx是你的姓名缩写
 
 1. 在 **awsastudxx** 屏幕中，单击 **访问密钥**。单击 **存储帐户名称** 旁边的图标并将其粘贴到记事本中。
 
@@ -301,16 +301,6 @@ lab:
     );
     ```
 
-1. 在 **SQL Server Management Studio** 中，突出显示该语句，然后单击 **执行**。
-
-    ```SQL
-    CREATE DATABASE SCOPED CREDENTIAL AzureStorageCredential
-    WITH
-    IDENTITY = 'MOCID',
-    SECRET = 'Your Blob Storage key'
-    ;
-    ```
-
 1. 在 **SQL Server Management Studio** 中，在“查询”窗口中，输入将创建的名为 **TextFile** 的外部文件格式的代码，格式为 **DelimitedText**，字段终止符为 **逗号**。
 
     ```SQL
@@ -327,18 +317,18 @@ lab:
 
     | 列名 | 数据类型 | 可为空性|
     |-------------|-----------|------------|
-    | 日期 | datetime2(3) | NULL|
-    | 日期键 | 小数(38, 0) | NULL|
-    | 月份键 | 小数(38, 0) | NULL|
-    | 月 | nvarchar(100) | NULL|
-    | 季度 | nvarchar(100) | NULL|
-    | 年 | 小数(38, 0) | NULL|
-    | 年-季度 | nvarchar(100) | NULL|
-    | 年-月 | nvarchar(100) | NULL|
-    | 年-月键 | nvarchar(100) | NULL|
-    | 周-日键| 小数(38, 0) | NULL|
-    | 平日| nvarchar(100) | NULL|
-    | 一个月的一天| 小数(38, 0) | NULL|
+    | 日期 | datetime2(3) | 空|
+    | 日期键 | 小数(38, 0) | 空|
+    | 月份键 | 小数(38, 0) | 空|
+    | 月 | nvarchar(100) | 空|
+    | 季度 | nvarchar(100) | 空|
+    | 年 | 小数(38, 0) | 空|
+    | 年-季度 | nvarchar(100) | 空|
+    | 年-月 | nvarchar(100) | 空|
+    | 年-月键 | nvarchar(100) | 空|
+    | 周-日键| 小数(38, 0) | 空|
+    | 平日| nvarchar(100) | 空|
+    | 日期| 小数(38, 0) | 空|
 
     ```SQL
     CREATE EXTERNAL TABLE dbo.DimDate2External (
@@ -375,7 +365,7 @@ lab:
     ```SQL
     CREATE TABLE dbo.Dates
     WITH
-    （   
+    (   
         CLUSTERED COLUMNSTORE INDEX,
         DISTRIBUTION = ROUND_ROBIN
     )
