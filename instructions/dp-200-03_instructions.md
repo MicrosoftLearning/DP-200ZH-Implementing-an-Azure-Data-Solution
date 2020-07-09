@@ -117,7 +117,7 @@ lab:
 
 1. 在 Azure 门户中，导航到 **“资源组”** 屏幕。
 
-1. 在“资源组”屏幕中，单击 ****“awrgstudxx”**资源组，其中 **“xx”** 是你的姓名首字母缩写。
+1. 在“资源组”屏幕中，单击 **“awrgstudxx”** 资源组，其中 **“xx”** 是你的姓名首字母缩写。
 
 1. 在 **“awrgstudxx”** 屏幕中，单击 **“awdbwsstudxx”**，其中 **“xx”** 是用于打开 Azure Databricks 的你的姓名首字母缩写。这将打开你的 Azure Databricks 服务。
 
