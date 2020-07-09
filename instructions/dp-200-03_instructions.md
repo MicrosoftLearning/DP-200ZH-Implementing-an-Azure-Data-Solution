@@ -139,7 +139,7 @@ lab:
 
     - **池**： **无**
 
-    - **Databricks Runtime 版本**： **运行时：6.2 (Scala 2.11, Spark 2.4.4)**
+    - **Databricks Runtime 版本**： **运行时：6.3 (Scala 2.11, Spark 2.4.4)**
 
     - 确保选中 **“不活动 60 分钟后终止”** 复选框。如果未使用群集，请提供终止群集的持续时间（以分钟为单位）。
 
@@ -287,7 +287,7 @@ lab:
     val df = spark.read.json("abfss://<file-system-name>@<storage-account-name>.dfs.core.windows.net/preferences.json")
     ```
 
-1. 在此代码块中，使用 **data** 一词替换 **file-system-name**，使用你之前采集并保存在记事本中的值替换此代码块中的 **storage-account-name** 占位符值。
+1. 在此代码块中，使用 **logs** 一词替换 **file-system-name**，使用你之前采集并保存在记事本中的值替换此代码块中的 **storage-account-name** 占位符值。
 
 1. 在笔记本中，在 **“Cmd 2”** 单元格中，点击 **“运行”** 图标，然后点击 **“运行单元格”**。 
 
