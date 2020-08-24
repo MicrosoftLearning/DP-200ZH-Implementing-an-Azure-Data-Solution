@@ -418,7 +418,7 @@ lab:
 - **05-Applying-Schemas-to-JSON（05 将架构应用至 JSON）** - 在本笔记本中，你将学习如何使用 DataFrames 查询 JSON 和分层数据
 - **06-Corrupt-Record-Handling** - 本笔记本列出了具有以下特性的练习：帮助你了解如何创建 ADLS 并使用 Databricks DataFrames 查询和分析此数据。
 - **07-Loading-Data-and-Productionalizing** - 在此你可以使用 Databricks 在 Azure Data Lake Storage Gen2 中查询和分析数据存储。
-- **Parsing-Nested-Data（解析嵌套数据）** - 本笔记本位于“可选”子文件夹中，其中包含一个示例项目，供你稍后自行浏览。
+- **08-Parsing-Nested-Data（解析嵌套数据）** - 本笔记本位于“可选”子文件夹中，其中包含一个示例项目，供你稍后自行浏览。
 
 >[注] 你可以在“解决方案”子文件夹中找到相应的笔记本。这些包含完成的练习单元，要求你完成一个或多个挑战。如果你遇到困难或只是想查看解决方案，请参阅这些内容。
 
@@ -449,6 +449,6 @@ lab:
 - **05-Joins-and-Lookup-Tables** - 在本笔记本中，你将学习如何使用表的标准和广播联接。
 - **06-Database-Writes** - 本笔记本包含以下练习：将数据并行写入多个目标数据库，存储由 ETL 作业转换而来的数据。
 - **07-Table-Management（07 表管理）** - 在这里，你可以处理托管和未托管表，以优化你的数据存储。
-- **Custom-Transformations** - 本笔记本位于“可选”子文件夹中，其中包含一个示例项目，供你稍后自行浏览。
+- **08-Custom-Transformations** - 本笔记本位于“可选”子文件夹中，其中包含一个示例项目，供你稍后自行浏览。
 
 >[注]你可以在“解决方案”子文件夹中找到相应的笔记本。这些包含已完成的练习单元，要求你完成一个或多个挑战。如果你遇到困难或只是想查看解决方案，请参阅这些内容。
