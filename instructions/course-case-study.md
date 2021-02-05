@@ -1,10 +1,4 @@
-﻿---
-lab:
-    title: '案例研究 -  AdventureWorks Cycles'
-    module: '模块 1:适用于数据工程师的 Azure'
----
-
-# 案例研究 -  AdventureWorks Cycles
+﻿# 案例研究 -  AdventureWorks Cycles
 
 AdventureWorks 直接向客户和经销商销售自行车和自行车零件。该公司目前在荷兰设有一个办事处，并通过一系列经销商和其网站上的在线销售在美国、德国和西班牙销售自行车。交付由当地配送中心完成。
 
