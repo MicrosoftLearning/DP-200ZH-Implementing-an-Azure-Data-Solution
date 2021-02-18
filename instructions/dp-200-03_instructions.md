@@ -33,7 +33,7 @@
 3. 使用 Azure Databricks 读取数据
 4. 使用 Azure Databricks 执行转换
 
-> **重要事项**：在完成本实验室课程时，请记下你在任何设置或配置任务中遇到的任何问题，并将其记录在位于 \Labfiles\DP-200-Issues-Doc.docx__ 的文档的表格中。记录实验室编号，记录技术，说明问题以及解决方案的内容。保存该文档，以便在稍后的模块中参考它。
+> **重要事项**：在完成本实验室课程时，请记下你在任何设置或配置任务中遇到的任何问题，并将其记录在位于 _\Labfiles\DP-200-Issues-Doc.docx_ 的文档的表格中。记录实验室编号，记录技术，说明问题以及解决方案的内容。保存该文档，以便在稍后的模块中参考它。
 
 ## 练习 1：解释 Azure Databricks
 
@@ -110,7 +110,7 @@
 
 2. 在 Azure 门户中，导航到 **“资源组”** 屏幕。
 
-3. 在“资源组”屏幕中，单击 **“awrgstudxx”**资源组，其中 **“xx”**是你的姓名首字母缩写。
+3. 在“资源组”屏幕中，单击 **“awrgstudxx”** 资源组，其中 **“xx”** 是你的姓名首字母缩写。
 
 4. 在 **“awrgstudxx”** 屏幕中，单击 **“awdbwsstudxx”**，其中 **“xx”** 是用于打开 Azure Databricks 的你的姓名首字母缩写。这将打开你的 Azure Databricks 服务。
 
@@ -388,7 +388,7 @@
 
 如果你提前完成了此实验，则以下部分提供了能帮助你了解有关 Azure 中基本和高级转换的更多信息的内容的链接。
 
-如果 url 不可访问，则在_Allfiles\Labfiles\Starter\DP-200.3\Post Course Review_文件夹存在笔记本图标的拷贝
+如果 url 不可访问，则在 _Allfiles\Labfiles\Starter\DP-200.3\Post Course Review_ 文件夹存在笔记本图标的拷贝
 
 **基本转换**
 
