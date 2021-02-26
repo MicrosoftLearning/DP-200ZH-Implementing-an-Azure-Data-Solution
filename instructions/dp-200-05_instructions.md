@@ -378,7 +378,7 @@
 
 13. 选择 **“新建 SQL 脚本”** 和 **“空脚本”**
 
-14. 在“查询”窗口中输入以下代码，为 Blob 存储帐户创建名为 **AzureStorage** 的外部数据源，以及使用 **HADOOP** 类型创建并使用 ****AzureStorageCredential** 的数据容器。请注意，你应该将位置密钥中的 **awdlsstudxx** 替换为带有你姓名缩写的存储帐户 
+14. 在“查询”窗口中输入以下代码，为 Blob 存储帐户创建名为 **AzureStorage** 的外部数据源，以及使用 **HADOOP** 类型创建并使用 **AzureStorageCredential** 的数据容器。请注意，你应该将位置密钥中的 **awdlsstudxx** 替换为带有你姓名缩写的存储帐户 
 
     ```SQL
 	CREATE EXTERNAL DATA SOURCE AzureStorage

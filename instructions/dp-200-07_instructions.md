@@ -277,7 +277,7 @@
     1. 从磁贴列表中选择 **“Azure Synapse Analytics”**。
     1. 选择一个新的链接服务，并将你的 Azure Synapse Analytics 连接配置为连接到模块 5 中创建的 DWDB 数据库。完成后请单击 **“创建”**。
     ![在 Azure 数据工厂中创建 Azure Synapse Analytics 连接](Linked_Image_Files/M07-E03-T04-img01.png)
-    1. 在数据集配置中，选择 **“创建新表”**，并在架构中输入**“Dbo”**，在表名中输入 **“Ratings”**。完成后单击 **“确定”**。
+    1. 在数据集配置中，选择 **“创建新表”**，并在架构中输入 **“Dbo”**，在表名中输入 **“Ratings”**。完成后单击 **“确定”**。
     ![在 Azure 数据工厂中创建 Azure Synapse Analytics 表](Linked_Image_Files/M07-E03-T04-img02.png)
     1. 由于指定了更新插入条件，因此你需要转到“设置”选项卡，然后根据 PrimaryGenre 和 year 两个键列选择“允许更新插入”。
     ![在 Azure 数据工厂中配置接收器设置](Linked_Image_Files/M07-E03-T04-img03.png)
